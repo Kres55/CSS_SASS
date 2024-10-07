@@ -1,0 +1,83 @@
+$primary-color:rgb(47, 47, 155);
+$secondary-police: Verdana, sans-serif;
+
+
+
+body {
+    background-color: lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+
+    h1{
+    color: orange;
+}
+    h2{
+    color: $primary-color;
+    font-family: $secondary-police;
+    ~p {
+        margin-top: 2em;
+        color: red;
+        /* faire "&" quand on a besoin de combler un espace*/
+        &:hover {
+            color: green;
+        }
+    }
+}
+}
+
+@mixin forme($color) {
+    width: 50px;
+    height: 50px;
+    background-color: $color;
+    margin-bottom: 0.5em;
+
+}
+
+
+.carre{
+    @include forme(magenta);
+}
+.rond{
+   @include forme(cyan);
+   border-radius: 50%;
+}
+
+
+@mixin flex($direction, $jc, $ai, $wrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $jc;
+    align-items: $ai;
+    flex-wrap: $wrap;
+}
+
+.container-row {
+    @include flex(row, space-evenly, center, nowrap);
+}
+
+.container-column {
+    @include flex(column, space-evenly, center, nowrap);
+    height:40vh;
+}
+
+@for $i from 1 through 4 {
+    .carre-dynamique#{$i * 5} {
+        width: $i * 5vh;
+        height: $i * 5vh;
+        background-color: cadetblue;
+        transition: all 1s ease-out;
+        &:hover{
+            transform: scale(2,1);
+            transition: all 1s ease-in;
+        }
+        &:nth-child(odd){
+            background-color: black;
+        }
+        &:nth-child(2n+2):hover{
+            background-color: fuchsia;
+            transform: rotate(90deg);
+            transition: all 1s ease;
+            cursor: pointer;
+        }
+        
+    }
+}
